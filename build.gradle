@@ -1,0 +1,46 @@
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'jetty'
+
+group = 'copad'
+version = '0.0.1'
+description = ''
+
+sourceCompatibility = 1.6
+targetCompatibility = 1.6
+
+keystoreAlias = 'copad'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	groovy 'org.codehaus.groovy:groovy-all:1.8.5'
+}
+
+def defaultEncoding = 'UTF-8'
+
+[compileJava, compileTestJava]*.options*.encoding = defaultEncoding
+[compileGroovy, compileTestGroovy]*.options*.encoding = defaultEncoding
+[compileGroovy, compileTestGroovy]*.groovyOptions*.encoding = defaultEncoding
+
+jettyRun.webAppSourceDirectory = file('lib-signed')
+jettyRun.contextPath = '/'
+
+// Package Fat Jar
+jar {
+	from { configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) } }
+	manifest {
+		attributes 'Implementation-Title': 'CoPad Engine', 'Implementation-Version': version, 'Main-Class' : 'com.lyhdev.copad.ScriptLoader'
+	}
+}
+
+task (run, dependsOn: 'classes', type: JavaExec) {
+	classpath = sourceSets.main.runtimeClasspath
+	main = 'com.lyhdev.copad.ScriptLoader'
+	jvmArgs = ['-XstartOnFirstThread', '-Xdock:name=copad']
+}
+
+defaultTasks 'run'
+

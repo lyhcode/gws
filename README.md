@@ -1,4 +1,6 @@
-gws
-===
+Groovy Web Start
+================
 
-Groovy Web Start scripting engine
+Groovy scripting engine using Java Web Start.
+
+

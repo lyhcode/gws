@@ -9,8 +9,9 @@ deploy:
 	mkdir lib-signed
 	cp build/libs/*.jar lib-signed
 	
-	read -p "Storepass: " storepass
-	find lib-signed -name "*.jar" -exec jarsigner -storepass $storepass {} gwskey \; -print
+	#read -p "Storepass: " storepass
+	#find lib-signed -name "*.jar" -exec jarsigner -storepass $storepass {} gwskey \; -print
+	find lib-signed -name "*.jar" -exec jarsigner {} gwskey \; -print
 	
 	#s3cmd sync lib-signed/* s3://s3.copad.cc/lib/
 	#rm -rf lib-signed

@@ -1,9 +1,11 @@
 import groovy.swing.SwingBuilder
 import java.awt.BorderLayout as BL
+import javax.swing.*
+import java.awt.*
 
 count = 0
 new SwingBuilder().edt {
-  frame(title:'Frame', size:[300,300], show: true) {
+  frame(title:'Frame', size:[300,300], defaultCloseOperation:JFrame.EXIT_ON_CLOSE, show: true) {
     borderLayout()
     textlabel = label(text:"Click the button!", constraints: BL.NORTH)
     button(text:'Click Me',

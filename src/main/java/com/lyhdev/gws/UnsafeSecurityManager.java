@@ -1,8 +1,4 @@
-package com.lyhdev.copad;
-
-import java.io.FileDescriptor;
-import java.net.InetAddress;
-import java.security.Permission;
+package com.lyhdev.gws;
 
 public class UnsafeSecurityManager extends SecurityManager {
 	public void checkAccept(String host, int port) {

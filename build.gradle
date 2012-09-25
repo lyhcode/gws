@@ -1,22 +1,23 @@
 apply plugin: 'java'
 apply plugin: 'groovy'
 apply plugin: 'jetty'
+apply plugin: 'eclipse'
 
-group = 'copad'
+group = 'gws'
 version = '0.0.1'
 description = ''
 
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
 
-keystoreAlias = 'copad'
+keystoreAlias = 'gws'
 
 repositories {
 	mavenCentral()
 }
 
 dependencies {
-	groovy 'org.codehaus.groovy:groovy-all:1.8.5'
+	groovy 'org.codehaus.groovy:groovy-all:1.8+'
 }
 
 def defaultEncoding = 'UTF-8'
@@ -39,7 +40,7 @@ jar {
 task (run, dependsOn: 'classes', type: JavaExec) {
 	classpath = sourceSets.main.runtimeClasspath
 	main = 'com.lyhdev.copad.ScriptLoader'
-	jvmArgs = ['-XstartOnFirstThread', '-Xdock:name=copad']
+	jvmArgs = ['-XstartOnFirstThread', '-Xdock:name=gws']
 }
 
 defaultTasks 'run'

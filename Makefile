@@ -3,15 +3,14 @@ makekey:
 
 deploy:
 	gradle jar
-	
-	rm -rf lib-signed
-	#cp -rf lib lib-signed
-	mkdir lib-signed
-	cp build/libs/*.jar lib-signed
-	
-	#read -p "Storepass: " storepass
+	cp -f build/libs/*.jar lib
+
+signjar:
 	#find lib-signed -name "*.jar" -exec jarsigner -storepass $storepass {} gwskey \; -print
-	find lib-signed -name "*.jar" -exec jarsigner {} gwskey \; -print
+	rm -rf lib-signed
+	cp -rf lib lib-signed
+	read -p "password? " storepass; \
+	find lib-signed -name "*.jar" -exec jarsigner -storepass "$$storepass" {} gwskey \; -print
 	
 	#s3cmd sync lib-signed/* s3://s3.copad.cc/lib/
 	#rm -rf lib-signed
